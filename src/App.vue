@@ -1,53 +1,51 @@
 <template>
   <section class="container">
-    <h2>{{ user.name }}</h2>
-    <h3>{{ user.age }}</h3>
+    <h2>{{ userName }}</h2>
+    <h3>{{ age }}</h3>
     <button @click="setAge">Submit</button>
     <div>
-      <input type="text" placeholder="First Name"/>
-      <input type="text" placeholder="Last Name"/>
+      <input type="text" placeholder="First Name" @input="setFirstName"/>
+      <input type="text" placeholder="Last Name" @input="setLastName"/>
     </div>
   </section>
 </template>
 
 <script>
 // import { ref } from 'vue';
-import { reactive } from 'vue';
+import { ref, computed } from 'vue';
 
 export default {
   setup() {
-      // const uName = ref('Maximillan');
-      // const uAge = ref(31);
-      // setTimeout(function() {
-      //   uName.value = 'Max';
-      // },2000)
-      // return { userName: uName, age: uAge}
-    //  const uAge = ref(31);
-      const user = reactive({
-        name: 'Maxmillan',
-        age: 31
+      // const uName = ref('Maximilian');
+      const firstName = ref('');
+      const lastName = ref('');
+      const uAge = ref('1')
+
+      const uName = computed(function(){
+         return firstName.value + ' ' + lastName.value;
       })
+      let setNewAge = () =>{
+        uAge.value = 33;
+      }  
 
-      function setNewAge() {
-        user.age = 20;
+      function setFirstName() {
+        firstName.value = event.target.value;
       }
-      // console.log(isRef(uAge.value));  // false
-      // console.log(isReactive(user.name)); // false
 
-      // console.log(isRef(uAge));  // True
-      // console.log(isReactive(user)); // True
-
-      // const userRefs = toRefs(user);
-      // console.log(isRef(userRefs.name)); // true (convert reactive to refs)
-
-      // setTimeout(function(){
-      //   user.name = "Max",
-      //   user.age = 34
-      // },2000)
-
-      return { user: user, setAge: setNewAge}
+      function setLastName() {
+        lastName.value = event.target.value;
+      }
+      return {
+        userName: uName, 
+        age: uAge, 
+        setAge: setNewAge, 
+        setFirstName: 
+        setFirstName, 
+        setLastName: setLastName
+        }
   }
   // data() {
+
   //   return {
   //     userName: 'Maximilian',
   //     age: 32
